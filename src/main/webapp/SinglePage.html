@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="myApp">
+    <head>
+        <title>Welcome to Income Tax Registration Website</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     
+        <!-- load bootstrap and fontawesome via CDN -->
+
+        <style>
+            html, body
+            {
+                font-size: 1.1em;
+            }
+        </style>
+        
+        <!-- load angular via CDN -->
+        <script src="https://code.angularjs.org/1.3.0-rc.0/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.3.0-rc.0/angular-messages.min.js"></script>
+        <script>
+                var myApp = angular.module('myApp', ['ngMessages']);
+
+
+                myApp.controller('mainController', ['$scope','$http',function ($scope,$http) {
+               
+                   
+                var REST_SERVICE_URI ="http://localhost:8080/SpringRestApplication/user.json"
+        
+                $scope.user={};
+                    
+                 $scope.submitForm = function (){
+                     
+                     console.log($scope.user);
+                     
+                     var formData = {
+						"name" : $scope.user.firstName,
+						"lastname" : $scope.user.lastName,
+						"address1": $scope.user.address1,
+						"address2": $scope.user.address2,
+						"state":$scope.user.state,
+						"city":$scope.user.city,
+						"pan":$scope.user.pan
+						};
+						
+        var request=$http.post(REST_SERVICE_URI,formData);
+                     request.success(function(){console.log("success")})};
+                    
+                   
+  }]);
+        
+        
+        </script>
+    </head>
+    <body>
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">Welcome to Income Tax Registration Details</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+    <style>body{font-family:"Arial";background-color:#E2E2DC}</style>
+        <div class="container">
+            <div ng-controller="mainController">
+                
+                
+<form name="myForm" ng-submit="submitForm()" action="load">
+  <label>
+    
+    <input type="text" name="firstName" ng-model="user.firstName" placeholder="Enter your first name" required />
+  </label><br>
+    <div ng-messages="myForm.firstName.$error" style="color:red" role="alert">
+        
+        <span ng-show="myForm.$dirty && myForm.firstName.$error.required">This is a required field</span><br>{{user.firstName}}
+        
+    </div><br>
+  
+<label>
+    
+    <input type="text"
+           name="lastName"
+           ng-model="user.lastName"
+           placeholder="Enter your last name"
+           required />
+  </label><br>
+
+                  
+<div ng-messages="myForm.lastName.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.lastName.$error.required">This is a required field</span>
+  </div><br>
+                         
+ 
+    <label style="color:blue">Enter your Address</label><br>   
+    <label>
+    
+    <input type="text"
+           name="address1"
+           ng-model="user.address1"
+           placeholder="address"
+           required
+           maxlength="40"
+           />
+  </label><br> 
+                         
+ <div ng-messages="myForm.address1.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.address1.$error.required">This is a required field</span>
+     
+     <div ng-message="maxlength"></div>
+    </div> 
+    
+    <label>
+   
+    <input type="text"
+           name="address2"
+           ng-model="user.address2"
+           placeholder="address"
+           required
+           maxlength="40"
+           />
+  </label><br> 
+                         
+ <div ng-messages="myForm.address2.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.address2.$error.required">This is a required field</span>
+     
+     <div ng-message="maxlength"></div>
+    </div>
+    <label>
+   
+    <input type="text"
+           name="city"
+           ng-model="user.city"
+           placeholder="CITY"
+           required
+           maxlength="40"
+           />
+  </label><br> 
+                         
+ <div ng-messages="myForm.city.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.city.$error.required">This is a required field</span>
+     
+     <div ng-message="maxlength"></div>
+    </div>
+    <input list="state" type="text"
+           
+           name="state"
+           ng-model="user.state"
+           placeholder="STATE"
+           required
+           maxlength="40"
+           >
+    <datalist id="state">
+        <option value="Karnataka">
+            <option value="Delhi">
+        <option value="Uttar Pradesh"></datalist>
+                         <input type="submit">
+        
+  <br> 
+                         
+ <div ng-messages="myForm.state.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.state.$error.required">This is a required field</span>
+     
+     <div ng-message="maxlength"></div>
+    </div>
+     
+     <label>
+    <input type="number"
+           name="pincode"
+           placeholder="pincode"
+           ng-model="user.pincode"
+           minlength="6"
+           required
+           maxlength="6"
+           />
+  </label><br> 
+                         
+ <div ng-messages="myForm.pincode.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.pincode.$error.required">This is a required field</span>
+     
+     <div ng-message="minlength">Enter a valid pincode</div>
+     <div ng-message="maxlength"></div>
+     
+  </div><br>
+<label style="color:blue">Enter your date of birth</label>
+                         
+        <label>
+    <input type="date"
+           name="dob"
+           placeholder="Date of birth"
+           ng-model="user.dob"
+           required
+           />
+  </label><br> 
+                         
+ <div ng-messages="myForm.date.$error" style="color:red" role="alert">
+   <span ng-show="myForm.$dirty && myForm.date.$error.required">This is a required field</span> 
+     
+  </div><br>
+    <label style="color:blue">Enter Income,PAN details along with Tax Deducted</label><br>
+    <label>
+    
+    <input type="text"
+           name="pan"
+           ng-model="user.pan"
+           minlength="10"
+           required
+           placeholder="Please enter your pan Id"
+           maxlength="10"
+            ng-pattern="panPattern"
+           />
+  </label><br> 
+                         
+ <div ng-messages="myForm.pan.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.pan.$error.required">This is a required field</span>
+     <div ng-message="minlength">Invalid!Please enter your 10 character pan ID</div>
+     <div ng-message="maxlength">Pan should not be more than 10 character</div>
+     
+  </div><br>
+<div class="invalid" ng-show="myform.pan.$invalid">
+         Invalid                   
+        </div>
+<label>
+    <input type="number"
+           name="income"
+           ng-model="user.income"
+           placeholder="Please enter your salary"
+           required
+           maxlength="10"
+            />
+           
+  </label><br> 
+                         
+ <div ng-messages="myForm.income.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.income.$error.required">This is a required field</span>
+     
+     <div ng-message="maxlength"></div>
+     
+  </div><br>
+ 
+    <label>
+    <input type="number"
+           name="tds"
+           ng-model="user.tds"
+           placeholder="tds strictly as per form 16"
+           required
+           maxlength="10"/>
+           
+  </label><br> 
+                         
+ <div ng-messages="myForm.tds.$error" style="color:red" role="alert">
+    <span ng-show="myForm.$dirty && myForm.tds.$error.required">This is a required field</span>
+     
+     <div ng-message="maxlength"></div>
+     
+  </div><br>
+     
+    
+     <input type="submit" id="submit" value="Submit" /> 
+     <input type="reset" value="clear" />                      
+                         
+                         
+                         
+</form>
+
+                
+                    
+               
+                    
+                    
+                   
+            
+                
+            </div>
+
+		</div>
+
+    </body>
+</html>
