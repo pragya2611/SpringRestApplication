@@ -21,7 +21,7 @@ public class XMLController {
 	try{
 		Personaletails pd = mapper.readValue(new URL("http://localhost:8080/SpringRestApplication/user.json"));
 		
-	}
+	
 	
 	} catch (JsonGenerationException e) {
 			e.printStackTrace();
